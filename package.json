@@ -1,0 +1,69 @@
+{
+  "name": "todo-ddd",
+  "version": "1.0.0",
+  "description": "a domain-driver design project of a todo app for my personal studies",
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --max-warnings=0",
+      "prettier --check"
+    ],
+    "src/**/*.{css,md,json}": [
+      "prettier --check"
+    ]
+  },
+  "scripts": {
+    "test": "dotenv -e .env.development -- vitest run --bail 1",
+    "test:watch": "dotenv -e .env.test -- vitest --bail 1",
+    "test:unit": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
+    "test:unit:watch": "dotenv -e .env.test -- vitest --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
+    "test:int": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{spec,e2e}.{ts,tsx}' --no-file-parallelism",
+    "test:int:watch": "dotenv -e .env.test -- vitest --exclude 'src/**/*.{spec,e2e}.{ts,tsx}' --no-file-parallelism",
+    "test:cov": "dotenv -e .env.test -- vitest run --coverage --no-file-parallelism",
+    "test:e2e": "dotenv -e .env.e2e -- playwright test",
+    "//teste-com-browser": "Inicia um teste com o browser",
+    "test:e2e:headed": "dotenv -e .env.e2e -- playwright test --headed",
+    "//teste-com-passo-a-passo": "Inicia um teste com o passo a passo",
+    "test:e2e:debug": "dotenv -e .env.e2e -- playwright test --debug",
+    "//teste-com-interface": "Inicia um teste com uma interface",
+    "test:e2e:ui": "dotenv -e .env.e2e -- playwright test --ui",
+    "test:e2e:report": "dotenv -e .env.e2e -- playwright show-report",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
+    "services:up": "docker compose -f compose.yml up -d",
+    "services:stop": "docker compose -f compose.yml stop",
+    "services:down": "docker compose -f compose.yml down",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cardote/todo-ddd.git"
+  },
+  "author": "Edgar Cardote",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cardote/todo-ddd/issues"
+  },
+  "homepage": "https://github.com/cardote/todo-ddd#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.0.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/coverage-v8": "^4.0.16",
+    "dotenv": "^17.2.3",
+    "dotenv-cli": "^11.0.0",
+    "eslint": "^9",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "jsdom": "^27.3.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "vitest": "^4.0.16"
+  }
+}
