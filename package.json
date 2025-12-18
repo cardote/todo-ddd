@@ -12,6 +12,8 @@
     ]
   },
   "scripts": {
+    "hello": "echo 'Hello, world!'",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "dotenv -e .env.development -- vitest run --bail 1",
     "test:watch": "dotenv -e .env.test -- vitest --bail 1",
     "test:unit": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
