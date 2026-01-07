@@ -1,8 +1,9 @@
 import { EmailAlreadyInUseError } from '@/profile/application/errors/email-already-in-use-error';
+import { InvalidProfileEmailError } from '@/profile/application/errors/invalid-profile-email-error';
+import { InvalidProfileNameError } from '@/profile/application/errors/invalid-profile-name-error';
 import { CreateProfileUseCase } from '@/profile/application/use-cases/create-profile-use-case';
 import { InMemoryProfileRepository } from '@/profile/infra/repositories/in-memory-profile-repository';
 import { makeTestProfile } from '@/tests/unit/shared/__tests__/utils/make-test-profile';
-import { use } from 'react';
 
 describe('CreateProfileUseCase (Unit)', () => {
   it('should create a profile successfully', async () => {
@@ -63,9 +64,26 @@ describe('CreateProfileUseCase (Unit)', () => {
     expect(result.isLeft()).toBe(true);
 
     if (result.isLeft()) {
+      expect(result.value).toBeInstanceOf(InvalidProfileNameError);
       expect(result.value.message).toBe(
         'Profile name must be at least 3 characters long',
       );
+    }
+  });
+
+  it('should return error when email is invalid', async () => {
+    const repo = new InMemoryProfileRepository();
+    const useCase = new CreateProfileUseCase(repo);
+    const result = await useCase.execute({
+      name: 'any-name',
+      email: 'invalid-email',
+    });
+
+    expect(result.isLeft()).toBe(true);
+
+    if (result.isLeft()) {
+      expect(result.value).toBeInstanceOf(InvalidProfileEmailError);
+      expect(result.value.message).toBe('Invalid email address');
     }
   });
 });
