@@ -34,8 +34,9 @@ export class Result<T> {
 
     return this._value as T;
   }
-
-  public static ok<T>(value: T): Result<T> {
+  public static ok<T>(): Result<T>;
+  public static ok<T>(value: T): Result<T>;
+  public static ok<T>(value?: T): Result<T> {
     return new Result<T>(true, undefined, value);
   }
 
