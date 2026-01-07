@@ -3,7 +3,7 @@ import { InvalidProfileEmailError } from '@/profile/application/errors/invalid-p
 import { InvalidProfileNameError } from '@/profile/application/errors/invalid-profile-name-error';
 import { CreateProfileUseCase } from '@/profile/application/use-cases/create-profile-use-case';
 import { InMemoryProfileRepository } from '@/profile/infra/repositories/in-memory-profile-repository';
-import { makeTestProfile } from '@/tests/unit/shared/__tests__/utils/make-test-profile';
+import { makeTestProfile } from '@/shared/__tests__/utils/make-test-profile';
 
 describe('CreateProfileUseCase (Unit)', () => {
   it('should create a profile successfully', async () => {

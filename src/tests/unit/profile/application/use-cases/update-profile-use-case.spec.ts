@@ -7,7 +7,7 @@ import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
 import { ProfileId } from '@/profile/domain/value-objects/profile-id';
 import { ProfileName } from '@/profile/domain/value-objects/profile-name';
 import { InMemoryProfileRepository } from '@/profile/infra/repositories/in-memory-profile-repository';
-import { makeTestProfile } from '@/tests/unit/shared/__tests__/utils/make-test-profile';
+import { makeTestProfile } from '@/shared/__tests__/utils/make-test-profile';
 
 describe('UpdateProfileUseCase (Unit)', () => {
   it('should update profile name successfully', async () => {

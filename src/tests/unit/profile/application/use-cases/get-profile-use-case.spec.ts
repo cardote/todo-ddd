@@ -1,7 +1,7 @@
 import { ProfileNotFoundError } from '@/profile/application/errors/profile-not-found-error';
 import { GetProfileUseCase } from '@/profile/application/use-cases/get-profile-use-case';
 import { InMemoryProfileRepository } from '@/profile/infra/repositories/in-memory-profile-repository';
-import { makeTestProfile } from '@/tests/unit/shared/__tests__/utils/make-test-profile';
+import { makeTestProfile } from '@/shared/__tests__/utils/make-test-profile';
 
 describe('GetProfileUseCase (Unit)', () => {
   it('should return profile successfully', async () => {

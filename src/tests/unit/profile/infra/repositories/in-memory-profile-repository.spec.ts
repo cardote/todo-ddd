@@ -1,5 +1,5 @@
 import { InMemoryProfileRepository } from '@/profile/infra/repositories/in-memory-profile-repository';
-import { makeTestProfile } from '@/tests/unit/shared/__tests__/utils/make-test-profile';
+import { makeTestProfile } from '@/shared/__tests__/utils/make-test-profile';
 
 describe('InMemoryProfileRepository (Unit)', () => {
   it('should save and find a profile by id', async () => {

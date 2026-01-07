@@ -1,4 +1,4 @@
-import { makeTestProfile } from '@/tests/unit/shared/__tests__/utils/make-test-profile';
+import { makeTestProfile } from '@/shared/__tests__/utils/make-test-profile';
 
 const INITIAL_DATE = new Date('2026-01-01T00:00:00Z');
 const NEXT_DATE = new Date('2026-01-01T01:00:00Z');
