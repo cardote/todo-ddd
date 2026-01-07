@@ -10,8 +10,12 @@ export function makeTestProfile() {
   const createName = (name: string = NAME) => ProfileName.create(name).value;
   const createEmail = (email: string = EMAIL) =>
     ProfileEmail.create(email).value;
-  const createProfile = (id?: ProfileId) => {
-    return Profile.create({ name: createName(), email: createEmail() }, id);
+  const createProfile = (
+    id: ProfileId = new ProfileId(),
+    name: ProfileName = createName(),
+    email: ProfileEmail = createEmail(),
+  ) => {
+    return Profile.create({ name, email }, id);
   };
 
   return { createName, createEmail, createProfile };
