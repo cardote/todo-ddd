@@ -18,12 +18,18 @@ type UpdateProfileOutput = {
   profileId: string;
 };
 
+export type UpdateProfileError =
+  | ProfileNotFoundError
+  | InvalidProfileNameError
+  | InvalidProfileEmailError
+  | EmailAlreadyInUseError;
+
 export class UpdateProfileUseCase {
   constructor(private readonly profiles: ProfileRepository) {}
 
   async execute(
     input: UpdateProfileInput,
-  ): Promise<Either<Error, UpdateProfileOutput>> {
+  ): Promise<Either<UpdateProfileError, UpdateProfileOutput>> {
     // Business logic to update a profile goes here
     const profileId = new ProfileId(input.profileId);
 

@@ -16,11 +16,16 @@ type CreateProfileUseCaseOutput = {
   profileId: string;
 };
 
+export type CreateProfileError =
+  | InvalidProfileNameError
+  | InvalidProfileEmailError
+  | EmailAlreadyInUseError;
+
 export class CreateProfileUseCase {
   constructor(private readonly profiles: ProfileRepository) {}
   async execute(
     input: CreateProfileUseCaseInput,
-  ): Promise<Either<Error, CreateProfileUseCaseOutput>> {
+  ): Promise<Either<CreateProfileError, CreateProfileUseCaseOutput>> {
     // Business logic to create a profile goes here
     // For example, check if email already exists, create profile entity, save to repository, etc.
     const name = ProfileName.create(input.name);

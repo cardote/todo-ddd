@@ -14,12 +14,14 @@ type GetProfileUseCaseOutput = {
     email: string;
   };
 };
+
+export type GetProfileError = ProfileNotFoundError;
 export class GetProfileUseCase {
   constructor(private readonly profiles: ProfileRepository) {}
 
   async execute(
     input: GetProfileUseCaseInput,
-  ): Promise<Either<Error, GetProfileUseCaseOutput>> {
+  ): Promise<Either<GetProfileError, GetProfileUseCaseOutput>> {
     const profile = await this.profiles.findById(
       new ProfileId(input.profileId),
     );
