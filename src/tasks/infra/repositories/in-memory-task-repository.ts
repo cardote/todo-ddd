@@ -1,5 +1,6 @@
 import { Task } from '@/tasks/domain/aggregates/task';
 import { TaskRepository } from '@/tasks/domain/repositories/task-repository';
+import { TaskId } from '@/tasks/domain/value-objects/task-id';
 
 export class InMemoryTaskRepository implements TaskRepository {
   private tasks = new Map<string, Task>();
@@ -8,7 +9,7 @@ export class InMemoryTaskRepository implements TaskRepository {
     this.tasks.set(task.id.value, task);
     return task;
   }
-  async findById(id: string): Promise<Task | null> {
-    return this.tasks.get(id) ?? null;
+  async findById(id: TaskId): Promise<Task | null> {
+    return this.tasks.get(id.value) ?? null;
   }
 }
