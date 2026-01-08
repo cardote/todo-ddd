@@ -1,3 +1,4 @@
+import { InvalidTaskTitleError } from '@/tasks/domain/errors/invalid-task-title-error';
 import { TaskTitle } from '@/tasks/domain/value-objects/task-title';
 
 describe('TaskTitle (Unit)', () => {
@@ -19,7 +20,7 @@ describe('TaskTitle (Unit)', () => {
 
     expect(result.isFailure).toBe(true);
     expect(result.isSuccess).toBe(false);
-    expect(result.error).toBeDefined();
+    expect(result.error).toBeInstanceOf(InvalidTaskTitleError);
   });
 
   it('should return failure when title is too short', () => {
@@ -27,6 +28,7 @@ describe('TaskTitle (Unit)', () => {
 
     expect(result.isFailure).toBe(true);
     expect(result.isSuccess).toBe(false);
+    expect(result.error).toBeInstanceOf(InvalidTaskTitleError);
   });
 
   it('should return failure when title is too long', () => {
@@ -35,5 +37,6 @@ describe('TaskTitle (Unit)', () => {
 
     expect(result.isFailure).toBe(true);
     expect(result.isSuccess).toBe(false);
+    expect(result.error).toBeInstanceOf(InvalidTaskTitleError);
   });
 });
