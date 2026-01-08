@@ -16,6 +16,8 @@ type CreateTaskOutput = {
   taskId: string;
 };
 
+export type CreateTaskError = ProfileNotFoundError | InvalidTaskTitleError;
+
 export class CreateTaskUseCase {
   constructor(
     private readonly tasks: TaskRepository,
@@ -24,7 +26,7 @@ export class CreateTaskUseCase {
 
   async execute(
     input: CreateTaskInput,
-  ): Promise<Either<Error, CreateTaskOutput>> {
+  ): Promise<Either<CreateTaskError, CreateTaskOutput>> {
     const ownerProfileId = new ProfileId(input.ownerProfileId);
 
     const profileExists = await this.profileReader.existsById(ownerProfileId);

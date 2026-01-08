@@ -4,6 +4,7 @@ import { TaskAlreadyCompletedError } from '@/tasks/application/erros/task-alread
 import { TaskNotFoundError } from '@/tasks/application/erros/task-not-found-error';
 import { CompleteTaskUseCase } from '@/tasks/application/use-cases/complete-task-use-case';
 import { Task } from '@/tasks/domain/aggregates/task';
+import { TaskId } from '@/tasks/domain/value-objects/task-id';
 import { TaskTitle } from '@/tasks/domain/value-objects/task-title';
 import { InMemoryTaskRepository } from '@/tasks/infra/repositories/in-memory-task-repository';
 
@@ -26,7 +27,7 @@ describe('CompleteTaskUseCase (Unit)', () => {
 
     expect(result.isRight()).toBe(true);
 
-    const completedTask = await repo.findById(task.id.value);
+    const completedTask = await repo.findById(new TaskId(task.id.value));
     expect(completedTask?.status.value).toBe('completed');
     expect(completedTask?.completedAt).toBeInstanceOf(Date);
   });
