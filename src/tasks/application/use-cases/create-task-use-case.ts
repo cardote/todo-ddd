@@ -36,7 +36,7 @@ export class CreateTaskUseCase {
 
     const title = TaskTitle.create(input.title);
     if (title.isFailure) {
-      return left(new InvalidTaskTitleError(title.error));
+      return left(new InvalidTaskTitleError(title.error?.message));
     }
 
     const task = Task.create({

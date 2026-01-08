@@ -41,7 +41,7 @@ export class CompleteTaskUseCase {
     const result = task.complete();
 
     if (result.isFailure) {
-      return left(new TaskAlreadyCompletedError(result.error));
+      return left(new TaskAlreadyCompletedError(result.error?.message));
     }
 
     await this.tasks.save(task);

@@ -3,6 +3,7 @@ import { TaskTitle } from '../value-objects/task-title';
 import { TaskStatus } from '../value-objects/task-status';
 import { AggregateRoot } from '@/shared/kernel/aggregate-root';
 import { Result } from '@/shared/kernel/result';
+import { TaskAlreadyCompletedError } from '../errors/task-already-completed-error';
 
 export interface TaskProps {
   title: TaskTitle;
@@ -52,9 +53,9 @@ export class Task extends AggregateRoot<TaskProps> {
     });
   }
 
-  complete(): Result<void> {
+  complete(): Result<void, TaskAlreadyCompletedError> {
     if (this.status.value === 'completed') {
-      return Result.fail('Task is already completed');
+      return Result.fail(new TaskAlreadyCompletedError());
     }
 
     this.props.status = TaskStatus.create('completed').value;

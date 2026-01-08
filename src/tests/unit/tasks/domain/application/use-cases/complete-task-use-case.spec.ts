@@ -83,7 +83,7 @@ describe('CompleteTaskUseCase (Unit)', () => {
 
     if (result.isLeft()) {
       expect(result.value).toBeInstanceOf(TaskAlreadyCompletedError);
-      expect(result.value.message).toBe('Task is already completed');
+      expect(result.value.message).toBe('The task has already been completed');
     }
   });
 
