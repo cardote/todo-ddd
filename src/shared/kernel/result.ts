@@ -1,10 +1,22 @@
-export class Result<T> {
+export class DomainError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+
+/**
+ * A Result class to represent success or failure of an operation.
+ * @template T - Type of the success value.
+ * @template E - Type of the error value, extends DomainError.
+ */
+export class Result<T, E extends DomainError = DomainError> {
   public readonly isFailure: boolean;
   public readonly isSuccess: boolean;
-  public readonly error?: string;
+  public readonly error?: E;
   public readonly _value?: T;
 
-  private constructor(isSuccess: boolean, error?: string, value?: T) {
+  private constructor(isSuccess: boolean, error?: E, value?: T) {
     // Success cannot have an error
     if (isSuccess && error) {
       throw new Error(
@@ -40,7 +52,7 @@ export class Result<T> {
     return new Result<T>(true, undefined, value);
   }
 
-  public static fail<T>(error: string): Result<T> {
-    return new Result<T>(false, error);
+  public static fail<E extends DomainError>(error: E): Result<never, E> {
+    return new Result<never, E>(false, error);
   }
 }
