@@ -1,3 +1,4 @@
+import { InvalidTaskStatusError } from '@/tasks/domain/errors/invalid-task-status-error';
 import { TaskStatus } from '@/tasks/domain/value-objects/task-status';
 
 describe('TaskStatus (Unit)', () => {
@@ -29,7 +30,7 @@ describe('TaskStatus (Unit)', () => {
 
     expect(result.isFailure).toBe(true);
     expect(result.isSuccess).toBe(false);
-    expect(result.error).toBeDefined();
+    expect(result.error).toBeInstanceOf(InvalidTaskStatusError);
   });
 
   it('should return failure when status is not allowed', () => {
@@ -37,5 +38,6 @@ describe('TaskStatus (Unit)', () => {
 
     expect(result.isFailure).toBe(true);
     expect(result.isSuccess).toBe(false);
+    expect(result.error).toBeInstanceOf(InvalidTaskStatusError);
   });
 });
