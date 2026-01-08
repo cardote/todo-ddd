@@ -112,9 +112,7 @@ describe('UpdateProfileUseCase (Unit)', () => {
 
     if (result.isLeft()) {
       expect(result.value).toBeInstanceOf(InvalidProfileNameError);
-      expect(result.value.message).toBe(
-        'Profile name must be at least 3 characters long',
-      );
+      expect(result.value.message).toBe('Invalid profile name.');
     }
   });
 
@@ -134,7 +132,7 @@ describe('UpdateProfileUseCase (Unit)', () => {
 
     if (result.isLeft()) {
       expect(result.value).toBeInstanceOf(InvalidProfileEmailError);
-      expect(result.value.message).toBe('Invalid email address');
+      expect(result.value.message).toBe('Invalid profile email.');
     }
   });
 });

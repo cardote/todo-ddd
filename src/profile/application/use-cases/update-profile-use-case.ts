@@ -41,7 +41,7 @@ export class UpdateProfileUseCase {
     if (input.name) {
       const name = ProfileName.create(input.name);
       if (name.isFailure) {
-        return left(new InvalidProfileNameError(name.error));
+        return left(new InvalidProfileNameError());
       }
 
       profile.changeName(name.value);
@@ -50,7 +50,7 @@ export class UpdateProfileUseCase {
     if (input.email) {
       const email = ProfileEmail.create(input.email);
       if (email.isFailure) {
-        return left(new InvalidProfileEmailError(email.error));
+        return left(new InvalidProfileEmailError());
       }
 
       // email must be unique

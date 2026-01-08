@@ -30,12 +30,12 @@ export class CreateProfileUseCase {
     // For example, check if email already exists, create profile entity, save to repository, etc.
     const name = ProfileName.create(input.name);
     if (name.isFailure) {
-      return left(new InvalidProfileNameError(name.error));
+      return left(new InvalidProfileNameError());
     }
 
     const email = ProfileEmail.create(input.email);
     if (email.isFailure) {
-      return left(new InvalidProfileEmailError(email.error));
+      return left(new InvalidProfileEmailError());
     }
 
     const existingProfile = await this.profiles.findByEmail(email.value);
