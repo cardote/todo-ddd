@@ -1,3 +1,4 @@
+import { InvalidProfileEmailError } from '@/profile/domain/errors/invalid-profile-email-error';
 import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
 
 describe('ProfileEmail (Unit)', () => {
@@ -18,7 +19,8 @@ describe('ProfileEmail (Unit)', () => {
     const result = ProfileEmail.create('');
     expect(result.isSuccess).toBe(false);
     expect(result.isFailure).toBe(true);
-    expect(result.error).toBe('Email is required');
+    expect(result.error).toBeInstanceOf(InvalidProfileEmailError);
+    expect(result.error?.message).toBe('Email is required');
   });
 
   it('should return failure when email is invalid format', () => {
@@ -26,6 +28,7 @@ describe('ProfileEmail (Unit)', () => {
     const result = ProfileEmail.create('invalid-email');
     expect(result.isSuccess).toBe(false);
     expect(result.isFailure).toBe(true);
-    expect(result.error).toBe('Invalid email address');
+    expect(result.error).toBeInstanceOf(InvalidProfileEmailError);
+    expect(result.error?.message).toBe('Invalid email address');
   });
 });

@@ -1,5 +1,6 @@
 import { Result } from '@/shared/kernel/result';
 import { ValueObject } from '@/shared/kernel/value-object';
+import { InvalidProfileEmailError } from '../errors/invalid-profile-email-error';
 
 interface ProfileEmailProps {
   value: string;
@@ -20,12 +21,12 @@ export class ProfileEmail extends ValueObject<ProfileEmailProps> {
     const normalized = (email ?? '').trim().toLowerCase();
 
     if (!normalized) {
-      return Result.fail('Email is required');
+      return Result.fail(new InvalidProfileEmailError('Email is required'));
     }
 
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized);
     if (!isValid) {
-      return Result.fail('Invalid email address');
+      return Result.fail(new InvalidProfileEmailError('Invalid email address'));
     }
     return Result.ok(new ProfileEmail({ value: normalized }));
   }
