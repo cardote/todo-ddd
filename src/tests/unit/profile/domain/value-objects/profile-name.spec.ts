@@ -1,3 +1,4 @@
+import { InvalidProfileNameError } from '@/profile/domain/errors/invalid-profile-name-error';
 import { ProfileName } from '@/profile/domain/value-objects/profile-name';
 
 describe('ProfileName (Unit)', () => {
@@ -23,7 +24,8 @@ describe('ProfileName (Unit)', () => {
     const result = ProfileName.create('Ed');
     expect(result.isSuccess).toBe(false);
     expect(result.isFailure).toBe(true);
-    expect(result.error).toBe(
+    expect(result.error).toBeInstanceOf(InvalidProfileNameError);
+    expect(result.error?.message).toBe(
       'Profile name must be at least 3 characters long',
     );
   });
@@ -33,7 +35,8 @@ describe('ProfileName (Unit)', () => {
     const result = ProfileName.create(longName);
     expect(result.isSuccess).toBe(false);
     expect(result.isFailure).toBe(true);
-    expect(result.error).toBe(
+    expect(result.error).toBeInstanceOf(InvalidProfileNameError);
+    expect(result.error?.message).toBe(
       'Profile name must have at most 60 characters long',
     );
   });

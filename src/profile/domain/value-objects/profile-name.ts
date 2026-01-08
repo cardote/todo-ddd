@@ -1,5 +1,6 @@
 import { Result } from '@/shared/kernel/result';
 import { ValueObject } from '@/shared/kernel/value-object';
+import { InvalidProfileNameError } from '../errors/invalid-profile-name-error';
 
 interface ProfileNameProps {
   value: string;
@@ -21,10 +22,18 @@ export class ProfileName extends ValueObject<ProfileNameProps> {
     ).trim();
 
     if (normalizedName.length < 3) {
-      return Result.fail('Profile name must be at least 3 characters long'); // make domain error later
+      return Result.fail(
+        new InvalidProfileNameError(
+          'Profile name must be at least 3 characters long',
+        ),
+      );
     }
     if (normalizedName.length > 60) {
-      return Result.fail('Profile name must have at most 60 characters long'); // make domain error later
+      return Result.fail(
+        new InvalidProfileNameError(
+          'Profile name must have at most 60 characters long',
+        ),
+      );
     }
 
     return Result.ok(new ProfileName({ value: normalizedName }));
