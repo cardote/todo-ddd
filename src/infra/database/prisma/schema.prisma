@@ -13,9 +13,12 @@ datasource db {
   provider = "postgresql"
 }
 
-model Task {
-  id        String   @id @default(uuid())
-  title     String
-  done      Boolean  @default(false)
-  createdAt DateTime @default(now())
+model Profile {
+  id        String   @id
+  name      String
+  email     String   @unique
+  createdAt DateTime
+  updatedAt DateTime
+
+  @@index([email])
 }
