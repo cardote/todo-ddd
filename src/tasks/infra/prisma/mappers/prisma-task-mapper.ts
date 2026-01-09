@@ -4,15 +4,7 @@ import { Task } from '@/tasks/domain/aggregates/task';
 import { TaskId } from '@/tasks/domain/value-objects/task-id';
 import { TaskStatus } from '@/tasks/domain/value-objects/task-status';
 import { TaskTitle } from '@/tasks/domain/value-objects/task-title';
-
-export type PrismaTask = {
-  id: string;
-  title: string;
-  status: string;
-  ownerProfileId: string;
-  createdAt: Date | undefined;
-  completedAt: Date | null;
-};
+import { PrismaTaskRecord } from '../../types/prisma-task';
 
 export class CorruptedTaskRecordError extends DomainError {
   constructor(message = 'Corrupted task record') {
@@ -21,7 +13,7 @@ export class CorruptedTaskRecordError extends DomainError {
 }
 
 export class PrismaTaskMapper {
-  static toPrisma(task: Task): PrismaTask {
+  static toPrisma(task: Task): PrismaTaskRecord {
     return {
       id: task.id.value,
       title: task.title.value,
@@ -32,7 +24,9 @@ export class PrismaTaskMapper {
     };
   }
 
-  static toDomain(raw: PrismaTask): Result<Task, CorruptedTaskRecordError> {
+  static toDomain(
+    raw: PrismaTaskRecord,
+  ): Result<Task, CorruptedTaskRecordError> {
     const id = new TaskId(raw.id);
 
     const title = TaskTitle.create(raw.title);
