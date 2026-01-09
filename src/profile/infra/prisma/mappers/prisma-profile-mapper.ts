@@ -3,14 +3,7 @@ import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
 import { ProfileId } from '@/profile/domain/value-objects/profile-id';
 import { ProfileName } from '@/profile/domain/value-objects/profile-name';
 import { DomainError, Result } from '@/shared/kernel/result';
-
-export type PrismaProfile = {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { PrismaProfileRecord } from '../../types/prisma-profile';
 
 export class CorruptedProfileRecordError extends DomainError {
   constructor(message = 'Corrupted profile record') {
@@ -19,7 +12,7 @@ export class CorruptedProfileRecordError extends DomainError {
 }
 
 export class PrismaProfileMapper {
-  static toPrisma(profile: Profile): PrismaProfile {
+  static toPrisma(profile: Profile): PrismaProfileRecord {
     return {
       id: profile.id.value,
       name: profile.name.value,
@@ -30,7 +23,7 @@ export class PrismaProfileMapper {
   }
 
   static toDomain(
-    raw: PrismaProfile,
+    raw: PrismaProfileRecord,
   ): Result<Profile, CorruptedProfileRecordError> {
     const id = new ProfileId(raw.id);
 

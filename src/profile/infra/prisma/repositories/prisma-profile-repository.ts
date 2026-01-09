@@ -5,6 +5,7 @@ import { PrismaProfileMapper } from '../mappers/prisma-profile-mapper';
 import { prisma } from '@/shared/infra/prisma/prisma-client';
 import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
 import { PrismaUniqueConstraintError } from '../errors/prisma-unique-constraint-error';
+import { PrismaProfileRecord } from '../../types/prisma-profile';
 
 export class PrismaProfileRepository implements ProfileRepository {
   async findById(id: ProfileId): Promise<Profile | null> {
@@ -12,7 +13,9 @@ export class PrismaProfileRepository implements ProfileRepository {
 
     if (!raw) return null;
 
-    const profile = PrismaProfileMapper.toDomain(raw);
+    const record: PrismaProfileRecord = raw;
+
+    const profile = PrismaProfileMapper.toDomain(record);
 
     if (profile.isFailure) {
       // corrupted record
@@ -29,7 +32,9 @@ export class PrismaProfileRepository implements ProfileRepository {
 
     if (!raw) return null;
 
-    const profile = PrismaProfileMapper.toDomain(raw);
+    const record: PrismaProfileRecord = raw;
+
+    const profile = PrismaProfileMapper.toDomain(record);
 
     if (profile.isFailure) {
       // corrupted record
