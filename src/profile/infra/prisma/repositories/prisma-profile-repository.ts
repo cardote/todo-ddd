@@ -49,7 +49,7 @@ export class PrismaProfileRepository implements ProfileRepository {
         update: {
           name: data.name,
           email: data.email,
-          updateAt: data.updatedAt,
+          updatedAt: data.updatedAt,
         },
       });
 

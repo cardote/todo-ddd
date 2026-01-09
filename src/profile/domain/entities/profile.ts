@@ -7,9 +7,11 @@ import { Optional } from '@/shared/kernel/optional';
 export interface ProfileProps {
   name: ProfileName;
   email: ProfileEmail;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
+
+type CreateProfileProps = Optional<ProfileProps, 'createdAt' | 'updatedAt'>;
 
 export class Profile extends Entity<ProfileProps> {
   get name() {
@@ -32,10 +34,7 @@ export class Profile extends Entity<ProfileProps> {
     super(props, id);
   }
 
-  static create(
-    props: Optional<ProfileProps, 'createdAt' | 'updatedAt'>,
-    id?: ProfileId,
-  ): Profile {
+  static create(props: CreateProfileProps, id?: ProfileId): Profile {
     const now = new Date();
     return new Profile(
       {

@@ -8,8 +8,8 @@ export type PrismaProfile = {
   id: string;
   name: string;
   email: string;
-  createdAt: Date | undefined;
-  updatedAt: Date | undefined;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export class CorruptedProfileRecordError extends DomainError {
