@@ -52,5 +52,5 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
-
-/prisma/src/infra/database/orm
+# Prisma
+/src/infra/database/generated/prisma

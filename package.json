@@ -36,6 +36,7 @@
     "services:up": "docker compose -f compose.yml up -d",
     "services:stop": "docker compose -f compose.yml stop",
     "services:down": "docker compose -f compose.yml down",
+    "prisma:generate": "dotenv -e .env.development -- npx prisma generate",
     "prisma:migrate": "dotenv -e .env.development -- npx prisma migrate dev --name init",
     "prisma:studio": "dotenv -e .env.development -- npx prisma studio",
     "prepare": "husky"
