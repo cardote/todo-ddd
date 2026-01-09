@@ -2,7 +2,7 @@ import { EmailAlreadyInUseError } from '@/profile/application/errors/email-alrea
 import { InvalidProfileEmailError } from '@/profile/application/errors/invalid-profile-email-error';
 import { InvalidProfileNameError } from '@/profile/application/errors/invalid-profile-name-error';
 import { ProfileNotFoundError } from '@/profile/application/errors/profile-not-found-error';
-import { UpdateProfileUseCase } from '@/profile/application/use-cases/update-profile-use-case';
+import { UpdateProfileUseCase } from '@/profile/application/use-cases/update-profile/update-profile-use-case';
 import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
 import { ProfileId } from '@/profile/domain/value-objects/profile-id';
 import { ProfileName } from '@/profile/domain/value-objects/profile-name';

@@ -1,7 +1,7 @@
 import { EmailAlreadyInUseError } from '@/profile/application/errors/email-already-in-use-error';
 import { InvalidProfileEmailError } from '@/profile/application/errors/invalid-profile-email-error';
 import { InvalidProfileNameError } from '@/profile/application/errors/invalid-profile-name-error';
-import { CreateProfileUseCase } from '@/profile/application/use-cases/create-profile-use-case';
+import { CreateProfileUseCase } from '@/profile/application/use-cases/create-profile/create-profile-use-case';
 import { InMemoryProfileRepository } from '@/profile/infra/repositories/in-memory-profile-repository';
 import { makeTestProfile } from '@/shared/__tests__/utils/make-test-profile';
 

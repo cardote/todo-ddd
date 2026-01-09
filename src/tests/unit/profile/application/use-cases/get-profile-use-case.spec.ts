@@ -1,5 +1,5 @@
 import { ProfileNotFoundError } from '@/profile/application/errors/profile-not-found-error';
-import { GetProfileUseCase } from '@/profile/application/use-cases/get-profile-use-case';
+import { GetProfileUseCase } from '@/profile/application/use-cases/get-profile/get-profile-use-case';
 import { InMemoryProfileRepository } from '@/profile/infra/repositories/in-memory-profile-repository';
 import { makeTestProfile } from '@/shared/__tests__/utils/make-test-profile';
 
