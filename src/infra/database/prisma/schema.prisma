@@ -20,5 +20,21 @@ model Profile {
   createdAt DateTime
   updatedAt DateTime
 
+  tasks     Task[]
+
   @@index([email])
+}
+
+model Task {
+  id             String   @id
+  title          String
+  status         String
+  ownerProfileId String
+  createdAt      DateTime
+  completedAt    DateTime?
+
+  owner          Profile  @relation(fields: [ownerProfileId], references: [id], onDelete: Cascade)
+
+  @@index([ownerProfileId])
+  @@index([status])
 }
