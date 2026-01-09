@@ -2,10 +2,10 @@ import { ProfileRepository } from '@/profile/domain/repositories/profile-reposit
 import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
 import { ProfileName } from '@/profile/domain/value-objects/profile-name';
 import { Either, left, right } from '@/shared/kernel/either';
-import { EmailAlreadyInUseError } from '../errors/email-already-in-use-error';
+import { EmailAlreadyInUseError } from '../../errors/email-already-in-use-error';
 import { Profile } from '@/profile/domain/entities/profile';
-import { InvalidProfileNameError } from '../errors/invalid-profile-name-error';
-import { InvalidProfileEmailError } from '../errors/invalid-profile-email-error';
+import { InvalidProfileNameError } from '../../errors/invalid-profile-name-error';
+import { InvalidProfileEmailError } from '../../errors/invalid-profile-email-error';
 
 type CreateProfileUseCaseInput = {
   name: string;

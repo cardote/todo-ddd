@@ -1,12 +1,12 @@
 import { ProfileRepository } from '@/profile/domain/repositories/profile-repository';
 import { ProfileId } from '@/profile/domain/value-objects/profile-id';
 import { Either, left, right } from '@/shared/kernel/either';
-import { ProfileNotFoundError } from '../errors/profile-not-found-error';
+import { ProfileNotFoundError } from '../../errors/profile-not-found-error';
 import { ProfileName } from '@/profile/domain/value-objects/profile-name';
-import { InvalidProfileNameError } from '../errors/invalid-profile-name-error';
+import { InvalidProfileNameError } from '../../errors/invalid-profile-name-error';
 import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
-import { InvalidProfileEmailError } from '../errors/invalid-profile-email-error';
-import { EmailAlreadyInUseError } from '../errors/email-already-in-use-error';
+import { InvalidProfileEmailError } from '../../errors/invalid-profile-email-error';
+import { EmailAlreadyInUseError } from '../../errors/email-already-in-use-error';
 
 type UpdateProfileInput = {
   profileId: string;

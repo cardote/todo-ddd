@@ -1,7 +1,7 @@
 import { ProfileRepository } from '@/profile/domain/repositories/profile-repository';
 import { ProfileId } from '@/profile/domain/value-objects/profile-id';
 import { Either, left, right } from '@/shared/kernel/either';
-import { ProfileNotFoundError } from '../errors/profile-not-found-error';
+import { ProfileNotFoundError } from '../../errors/profile-not-found-error';
 
 type GetProfileUseCaseInput = {
   profileId: string;
