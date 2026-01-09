@@ -5,7 +5,6 @@ import { PrismaUniqueConstraintError } from '@/profile/infra/prisma/errors/prism
 import { PrismaProfileRepository } from '@/profile/infra/prisma/repositories/prisma-profile-repository';
 import { prisma } from '@/shared/infra/prisma/prisma-client';
 import { Task } from '@/tasks/domain/aggregates/task';
-import { ProfileId } from '@/tasks/domain/value-objects/profile-id';
 import { TaskId } from '@/tasks/domain/value-objects/task-id';
 import { TaskTitle } from '@/tasks/domain/value-objects/task-title';
 import { PrismaTaskRepository } from '@/tasks/infra/prisma/repositories/prisma-task-repository';
