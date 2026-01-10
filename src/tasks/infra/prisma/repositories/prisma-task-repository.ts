@@ -5,6 +5,7 @@ import { PrismaTaskMapper } from '../mappers/prisma-task-mapper';
 import { prisma } from '@/shared/infra/prisma/prisma-client';
 import { PrismaTaskRecord } from '../../types/prisma-task';
 import { domainEvents } from '@/shared/infra/events/domain-event-dispatcher';
+import { serializeDomainEvent } from '@/shared/infra/outbox/outbox-serializer';
 
 export class PrismaTaskRepository implements TaskRepository {
   async findById(id: TaskId): Promise<Task | null> {
@@ -25,22 +26,43 @@ export class PrismaTaskRepository implements TaskRepository {
 
   async save(task: Task): Promise<Task> {
     const data = PrismaTaskMapper.toPrisma(task);
+    const events = task.domainEvents;
 
-    await prisma.task.upsert({
-      where: { id: data.id },
-      create: data,
-      update: {
-        title: data.title,
-        status: data.status,
-        ownerProfileId: data.ownerProfileId,
-        createdAt: data.createdAt,
-        completedAt: data.completedAt,
-      },
+    await prisma.$transaction(async tx => {
+      await prisma.task.upsert({
+        where: { id: data.id },
+        create: data,
+        update: {
+          title: data.title,
+          status: data.status,
+          ownerProfileId: data.ownerProfileId,
+          createdAt: data.createdAt,
+          completedAt: data.completedAt,
+        },
+      });
+
+      if (events.length > 0) {
+        const messages = events.map(event =>
+          serializeDomainEvent({
+            aggregateType: 'Task',
+            aggregateId: task.id.value,
+            event,
+          }),
+        );
+
+        await tx.outboxMessage.createMany({
+          data: messages.map(m => ({
+            id: m.id,
+            aggregateType: m.aggregateType,
+            aggregateId: m.aggregateId,
+            eventName: m.eventName,
+            payload: m.payload,
+            occurredAt: m.occurredAt,
+          })),
+        });
+      }
     });
 
-    // the dispath not happens if the transaction fails
-    // make Outbox Pattern later
-    await domainEvents.dispatch(task.domainEvents);
     task.clearDomainEvents();
 
     return task;

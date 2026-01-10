@@ -6,6 +6,7 @@ import { prisma } from '@/shared/infra/prisma/prisma-client';
 import { ProfileEmail } from '@/profile/domain/value-objects/profile-email';
 import { PrismaUniqueConstraintError } from '../errors/prisma-unique-constraint-error';
 import { PrismaProfileRecord } from '../../types/prisma-profile';
+import { serializeDomainEvent } from '@/shared/infra/outbox/outbox-serializer';
 
 export class PrismaProfileRepository implements ProfileRepository {
   async findById(id: ProfileId): Promise<Profile | null> {
@@ -46,17 +47,43 @@ export class PrismaProfileRepository implements ProfileRepository {
 
   async save(profile: Profile): Promise<Profile> {
     const data = PrismaProfileMapper.toPrisma(profile);
+    const events = profile.domainEvents;
 
     try {
-      await prisma.profile.upsert({
-        where: { id: data.id },
-        create: data,
-        update: {
-          name: data.name,
-          email: data.email,
-          updatedAt: data.updatedAt,
-        },
+      await prisma.$transaction(async tx => {
+        await prisma.profile.upsert({
+          where: { id: data.id },
+          create: data,
+          update: {
+            name: data.name,
+            email: data.email,
+            updatedAt: data.updatedAt,
+          },
+        });
+
+        if (events.length > 0) {
+          const messages = events.map(event =>
+            serializeDomainEvent({
+              aggregateType: 'Profile',
+              aggregateId: profile.id.value,
+              event,
+            }),
+          );
+
+          await tx.outboxMessage.createMany({
+            data: messages.map(m => ({
+              id: m.id,
+              aggregateType: m.aggregateType,
+              aggregateId: m.aggregateId,
+              eventName: m.eventName,
+              payload: m.payload,
+              occurredAt: m.occurredAt,
+            })),
+          });
+        }
       });
+
+      profile.clearDomainEvents();
 
       return profile;
     } catch (error) {
