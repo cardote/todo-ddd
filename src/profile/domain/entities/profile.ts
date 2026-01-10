@@ -1,8 +1,9 @@
-import { Entity } from '@/shared/kernel/entity';
 import { ProfileEmail } from '../value-objects/profile-email';
 import { ProfileName } from '../value-objects/profile-name';
 import { ProfileId } from '../value-objects/profile-id';
 import { Optional } from '@/shared/kernel/optional';
+import { AggregateRoot } from '@/shared/kernel/aggregate-root';
+import { ProfileCreatedEvent } from '../events/profile-created-event';
 
 export interface ProfileProps {
   name: ProfileName;
@@ -13,7 +14,7 @@ export interface ProfileProps {
 
 type CreateProfileProps = Optional<ProfileProps, 'createdAt' | 'updatedAt'>;
 
-export class Profile extends Entity<ProfileProps> {
+export class Profile extends AggregateRoot<ProfileProps> {
   get name() {
     return this.props.name;
   }
@@ -36,7 +37,7 @@ export class Profile extends Entity<ProfileProps> {
 
   static create(props: CreateProfileProps, id?: ProfileId): Profile {
     const now = new Date();
-    return new Profile(
+    const profile = new Profile(
       {
         ...props,
         createdAt: props.createdAt ?? now,
@@ -44,6 +45,14 @@ export class Profile extends Entity<ProfileProps> {
       },
       id,
     );
+
+    profile.addDomainEvent(new ProfileCreatedEvent(profile.id, profile.email));
+
+    return profile;
+  }
+
+  static rehydrate(props: ProfileProps, id: ProfileId): Profile {
+    return new Profile(props, id);
   }
   changeEmail(newEmail: ProfileEmail) {
     this.props.email = newEmail;
