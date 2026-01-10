@@ -38,6 +38,8 @@ export class PrismaTaskRepository implements TaskRepository {
       },
     });
 
+    // the dispath not happens if the transaction fails
+    // make Outbox Pattern later
     await domainEvents.dispatch(task.domainEvents);
     task.clearDomainEvents();
 

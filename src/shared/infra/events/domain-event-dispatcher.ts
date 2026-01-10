@@ -1,18 +1,18 @@
 import { DomainEvent } from '@/shared/kernel/domain-event';
 
-type Handler<E extends DomainEvent = DomainEvent> = (
+export type DomainEventHandler<E extends DomainEvent = DomainEvent> = (
   event: E,
 ) => Promise<void> | void;
 
 export class DomainEventDispatcher {
-  private handlers: Record<string, Handler[]> = {};
+  private handlers: Record<string, DomainEventHandler[]> = {};
 
-  register(eventName: string, handler: Handler) {
-    this.handlers[eventName] = this.handlers[eventName] ?? [];
+  register(eventName: string, handler: DomainEventHandler) {
+    this.handlers[eventName] ??= []; // initialize if undefined
     this.handlers[eventName].push(handler);
   }
 
-  async dispatch(events: DomainEvent[]) {
+  async dispatch(events: DomainEvent[]): Promise<void> {
     for (const event of events) {
       const handlers = this.handlers[event.name] ?? [];
       for (const handler of handlers) {
