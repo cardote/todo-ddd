@@ -45,7 +45,7 @@ export class PrismaProfileMapper {
       );
     }
 
-    const profile = Profile.create(
+    const profile = Profile.rehydrate(
       {
         name: name.value,
         email: email.value,
