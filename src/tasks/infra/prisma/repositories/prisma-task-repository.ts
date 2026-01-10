@@ -4,6 +4,7 @@ import { TaskId } from '@/tasks/domain/value-objects/task-id';
 import { PrismaTaskMapper } from '../mappers/prisma-task-mapper';
 import { prisma } from '@/shared/infra/prisma/prisma-client';
 import { PrismaTaskRecord } from '../../types/prisma-task';
+import { domainEvents } from '@/shared/infra/events/domain-event-dispatcher';
 
 export class PrismaTaskRepository implements TaskRepository {
   async findById(id: TaskId): Promise<Task | null> {
@@ -36,6 +37,9 @@ export class PrismaTaskRepository implements TaskRepository {
         completedAt: data.completedAt,
       },
     });
+
+    await domainEvents.dispatch(task.domainEvents);
+    task.clearDomainEvents();
 
     return task;
   }

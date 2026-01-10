@@ -5,6 +5,7 @@ import { AggregateRoot } from '@/shared/kernel/aggregate-root';
 import { Result } from '@/shared/kernel/result';
 import { TaskAlreadyCompletedError } from '../errors/task-already-completed-error';
 import { TaskId } from '../value-objects/task-id';
+import { TaskCompletedEvent } from '../events/task-completed-event';
 
 export interface TaskProps {
   title: TaskTitle;
@@ -81,6 +82,8 @@ export class Task extends AggregateRoot<TaskProps> {
 
     this.props.status = TaskStatus.create('completed').value;
     this.props.completedAt = new Date();
+
+    this.addDomainEvent(new TaskCompletedEvent(this.id, this.ownerProfileId));
 
     return Result.ok<void>();
   }
