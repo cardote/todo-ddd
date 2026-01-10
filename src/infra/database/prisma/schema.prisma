@@ -38,3 +38,20 @@ model Task {
   @@index([ownerProfileId])
   @@index([status])
 }
+
+model OutboxMessage {
+  id            String   @id
+  aggregateType String
+  aggregateId   String
+  eventName     String
+  payload       Json
+  occurredAt    DateTime
+  processedAt   DateTime?
+  attempts      Int      @default(0)
+  lastError     String?
+  createdAt     DateTime @default(now())
+
+  @@index([processedAt])
+  @@index([eventName])
+  @@index([aggregateType, aggregateId])
+}
