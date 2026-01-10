@@ -5,6 +5,9 @@ type ProcessOptions = {
   batchSize?: number;
 };
 
+// TODO: Outbox with lock/skip locked (to prevent 2 workers from picking up the same message) and more robust "lease"/retries.
+// issue: The event can be reprocessed if it fails midway.
+
 export async function processOutbox(options: ProcessOptions = {}) {
   const batchSize = options.batchSize ?? 20;
 
@@ -17,8 +20,7 @@ export async function processOutbox(options: ProcessOptions = {}) {
 
   for (const message of messages) {
     try {
-      // rebuild a DomainEvent-like from payload
-      // to dispatch it
+      // rebuild a DomainEvent-like from payload to dispatch it
       const event = {
         ...(message.payload as Record<string, unknown>),
         name: message.eventName,
