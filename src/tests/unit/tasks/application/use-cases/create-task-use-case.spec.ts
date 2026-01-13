@@ -49,8 +49,6 @@ describe('CreateTaskUseCase (Unit)', () => {
     expect(result.isLeft()).toBe(true);
 
     if (result.isLeft()) {
-      console.log(result);
-
       expect(result.value).toBeInstanceOf(ProfileNotFoundError);
       expect(result.value.message).toBe('Profile not found.');
     }
