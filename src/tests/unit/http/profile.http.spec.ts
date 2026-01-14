@@ -76,7 +76,7 @@ describe('Profile HTTP (Unit)', () => {
       },
     });
     expect(res.statusCode).toBe(400);
-    expect(createExecute).not.toHaveBeenCalled();
+    expect(res.json().error.code).toBe('VALIDATION_ERROR');
   });
 
   it('POST /profile should map EmailAlreadyInUseError to 409', async () => {
@@ -179,7 +179,7 @@ describe('Profile HTTP (Unit)', () => {
       payload: {},
     });
     expect(res.statusCode).toBe(400);
-    expect(updateExecute).not.toHaveBeenCalled();
+    expect(res.json().error.code).toBe('VALIDATION_ERROR');
   });
 
   it('should cloase app', async () => {

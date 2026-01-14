@@ -7,7 +7,7 @@ type CompleteTaskParams = {
 };
 
 type CompleteTaskBody = {
-  requesterProfileId?: unknown;
+  requesterProfileId: string;
 };
 
 export async function completeTaskController(
@@ -18,28 +18,7 @@ export async function completeTaskController(
   reply: FastifyReply,
 ) {
   const { id } = request.params;
-  const { requesterProfileId } = request.body ?? {};
-
-  if (typeof id !== 'string' || id.trim().length === 0) {
-    return reply.status(400).send({
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'id is required and must be a string',
-      },
-    });
-  }
-
-  if (
-    requesterProfileId !== undefined &&
-    typeof requesterProfileId !== 'string'
-  ) {
-    return reply.status(400).send({
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'requesterProfileId must be a string',
-      },
-    });
-  }
+  const { requesterProfileId } = request.body;
 
   const useCase = makeCompleteTaskUseCase();
   const result = await useCase.execute({

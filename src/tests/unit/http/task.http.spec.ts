@@ -54,7 +54,7 @@ describe('Task HTTP (Unit)', () => {
     });
 
     expect(res.statusCode).toBe(400);
-    expect(createTaskExecute).not.toHaveBeenCalled();
+    expect(res.json().error.code).toBe('VALIDATION_ERROR');
   });
 
   it('PATCH /tasks/:id/complete should return 200 on success', async () => {

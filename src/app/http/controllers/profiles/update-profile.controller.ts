@@ -7,8 +7,8 @@ type UpdateProfileParams = {
 };
 
 type UpdateProfileBody = {
-  name?: unknown;
-  email?: unknown;
+  name?: string;
+  email?: string;
 };
 
 export async function updateProfileController(
@@ -19,43 +19,7 @@ export async function updateProfileController(
   reply: FastifyReply,
 ) {
   const { id } = request.params;
-  const { name, email } = request.body ?? {};
-
-  if (typeof id !== 'string' || id.trim().length === 0) {
-    return reply.status(400).send({
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'id is required and must be a string',
-      },
-    });
-  }
-
-  if (name !== undefined && typeof name !== 'string') {
-    return reply.status(400).send({
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'name must be a string',
-      },
-    });
-  }
-
-  if (email !== undefined && typeof email !== 'string') {
-    return reply.status(400).send({
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'email must be a string',
-      },
-    });
-  }
-
-  if (name === undefined && email === undefined) {
-    return reply.status(400).send({
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'name or email is required',
-      },
-    });
-  }
+  const { name, email } = request.body;
 
   const useCase = makeUpdateProfileUseCase();
   const result = await useCase.execute({
