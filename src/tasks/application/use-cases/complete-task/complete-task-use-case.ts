@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/shared/kernel/either';
 import { TaskRepository } from '@/tasks/domain/repositories/task-repository';
-import { TaskNotFoundError } from '../erros/task-not-found-error';
+import { TaskNotFoundError } from '../../erros/task-not-found-error';
 import { ProfileId } from '@/profile/domain/value-objects/profile-id';
-import { NotTaskOwnerError } from '../erros/not-task-owner-error';
-import { TaskAlreadyCompletedError } from '../erros/task-already-completed-error';
+import { NotTaskOwnerError } from '../../erros/not-task-owner-error';
+import { TaskAlreadyCompletedError } from '../../erros/task-already-completed-error';
 import { TaskId } from '@/tasks/domain/value-objects/task-id';
 
 type CompleteTaskInput = {

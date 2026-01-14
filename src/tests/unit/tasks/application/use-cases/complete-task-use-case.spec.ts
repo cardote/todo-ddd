@@ -2,7 +2,7 @@ import { ProfileId } from '@/profile/domain/value-objects/profile-id';
 import { NotTaskOwnerError } from '@/tasks/application/erros/not-task-owner-error';
 import { TaskAlreadyCompletedError } from '@/tasks/application/erros/task-already-completed-error';
 import { TaskNotFoundError } from '@/tasks/application/erros/task-not-found-error';
-import { CompleteTaskUseCase } from '@/tasks/application/use-cases/complete-task-use-case';
+import { CompleteTaskUseCase } from '@/tasks/application/use-cases/complete-task/complete-task-use-case';
 import { Task } from '@/tasks/domain/aggregates/task';
 import { TaskId } from '@/tasks/domain/value-objects/task-id';
 import { TaskTitle } from '@/tasks/domain/value-objects/task-title';

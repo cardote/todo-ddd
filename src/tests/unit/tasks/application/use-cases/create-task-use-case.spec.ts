@@ -1,6 +1,6 @@
 import { InvalidTaskTitleError } from '@/tasks/application/erros/invalid-task-title-error';
 import { ProfileNotFoundError } from '@/tasks/application/erros/profile-not-found-error';
-import { CreateTaskUseCase } from '@/tasks/application/use-cases/create-task-use-case';
+import { CreateTaskUseCase } from '@/tasks/application/use-cases/create-task/create-task-use-case';
 import { TaskId } from '@/tasks/domain/value-objects/task-id';
 import { InMemoryTaskRepository } from '@/tasks/infra/repositories/in-memory-task-repository';
 

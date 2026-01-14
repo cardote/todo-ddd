@@ -1,10 +1,10 @@
 import { TaskRepository } from '@/tasks/domain/repositories/task-repository';
-import { ProfileReader } from '../services/profile-reader';
+import { ProfileReader } from '../../services/profile-reader';
 import { Either, left, right } from '@/shared/kernel/either';
 import { ProfileId } from '@/profile/domain/value-objects/profile-id';
-import { ProfileNotFoundError } from '../erros/profile-not-found-error';
+import { ProfileNotFoundError } from '../../erros/profile-not-found-error';
 import { TaskTitle } from '@/tasks/domain/value-objects/task-title';
-import { InvalidTaskTitleError } from '../erros/invalid-task-title-error';
+import { InvalidTaskTitleError } from '../../erros/invalid-task-title-error';
 import { Task } from '@/tasks/domain/aggregates/task';
 
 type CreateTaskInput = {
