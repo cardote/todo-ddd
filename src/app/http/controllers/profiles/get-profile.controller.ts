@@ -18,5 +18,5 @@ export async function getProfileController(
     return reply.status(http.statusCode).send(http.body);
   }
 
-  return reply.status(200).send({ data: result.value });
+  return reply.status(200).send({ data: result.value.profile });
 }

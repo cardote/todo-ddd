@@ -78,9 +78,9 @@ export async function profileRoutes(app: FastifyInstance) {
               data: {
                 type: 'object',
                 properties: {
+                  id: { type: 'string' },
                   email: { type: 'string' },
                   name: { type: 'string' },
-                  profileId: { type: 'string' },
                 },
               },
             },
