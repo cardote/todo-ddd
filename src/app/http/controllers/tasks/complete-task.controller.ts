@@ -23,10 +23,11 @@ export async function completeTaskController(
   const useCase = makeCompleteTaskUseCase();
   const result = await useCase.execute({
     taskId: id,
-    requesterProfileId: requesterProfileId ?? '',
+    requesterProfileId,
   });
 
   if (result.isLeft()) {
+    console.log(result);
     const http = mapErrorToHttp(result.value);
     return reply.status(http.statusCode).send(http.body);
   }

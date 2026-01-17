@@ -18,5 +18,5 @@ export async function createTasksController(
     return reply.status(http.statusCode).send(http.body);
   }
 
-  return reply.status(201).send({ data: result });
+  return reply.status(201).send({ data: result.value });
 }

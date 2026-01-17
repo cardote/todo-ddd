@@ -44,7 +44,7 @@ export function mapErrorToHttp(error: Error): HttpError {
   }
   if (name === 'TaskAlreadyCompletedError') {
     return {
-      statusCode: 400,
+      statusCode: 409,
       body: {
         error: { code: 'TASK_ALREADY_COMPLETED', message: error.message },
       },

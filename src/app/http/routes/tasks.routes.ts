@@ -17,7 +17,6 @@ export async function tasksRoutes(app: FastifyInstance) {
           },
         },
         response: {
-          201: { type: 'object' },
           400: {
             type: 'object',
             properties: {
