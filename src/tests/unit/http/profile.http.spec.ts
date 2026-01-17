@@ -105,9 +105,11 @@ describe('Profile HTTP (Unit)', () => {
   it('GET /profile/:id should return 200 on success', async () => {
     getExecute.mockResolvedValueOnce(
       right({
-        profileId: 'any-id1',
-        name: 'any-name',
-        email: 'any-email@email.com',
+        profile: {
+          id: 'any-id1',
+          name: 'any-name',
+          email: 'any-email@email.com',
+        },
       }),
     );
 
@@ -120,7 +122,7 @@ describe('Profile HTTP (Unit)', () => {
     const body = res.json();
     expect(body).toEqual({
       data: {
-        profileId: 'any-id1',
+        id: 'any-id1',
         name: 'any-name',
         email: 'any-email@email.com',
       },
