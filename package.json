@@ -15,7 +15,7 @@
     "hello": "echo 'Hello, world!'",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "dotenv -e .env.development -- vitest run --bail 1",
-    "test:watch": "dotenv -e .env.development -- vitest --bail 1",
+    "test:watch": "dotenv -e .env.test -- vitest --bail 1",
     "test:unit": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
     "test:unit:watch": "dotenv -e .env.test -- vitest --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
     "test:int": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{spec,e2e}.{ts,tsx}' --no-file-parallelism",
@@ -37,9 +37,13 @@
     "services:stop": "docker compose -f compose.yml stop",
     "services:down": "docker compose -f compose.yml down",
     "prisma:generate": "dotenv -e .env.development -- npx prisma generate --schema=src/infra/database/prisma/schema.prisma",
+    "prisma:generate:test": "dotenv -e .env.test -- npx prisma generate --schema=src/infra/database/prisma/schema.prisma",
     "prisma:validate": "dotenv -e .env.development -- npx prisma validate",
+    "prisma:validate:test": "dotenv -e .env.test -- npx prisma validate",
     "prisma:migrate": "dotenv -e .env.development -- npx prisma migrate dev",
+    "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
     "prisma:studio": "dotenv -e .env.development -- npx prisma studio",
+    "prisma:studio:test": "dotenv -e .env.test -- npx prisma studio",
     "prepare": "husky"
   },
   "repository": {

@@ -14,7 +14,7 @@ export default defineConfig({
   test: {
     // Define o ambiente de testes como jsdom
     // (simula o DOM no Node.js, ideal para testes de componentes React)
-    environment: 'jsdom',
+    environment: 'node',
 
     // Permite usar funções como `describe`, `it`, `expect`
     // sem importar manualmente
