@@ -15,7 +15,7 @@
     "hello": "echo 'Hello, world!'",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "dotenv -e .env.development -- vitest run --bail 1",
-    "test:watch": "dotenv -e .env.development -- vitest --bail 1",
+    "test:watch": "dotenv -e .env.test -- vitest --bail 1",
     "test:unit": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
     "test:unit:watch": "dotenv -e .env.test -- vitest --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
     "test:int": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{spec,e2e}.{ts,tsx}' --no-file-parallelism",
@@ -36,6 +36,14 @@
     "services:up": "docker compose -f compose.yml up -d",
     "services:stop": "docker compose -f compose.yml stop",
     "services:down": "docker compose -f compose.yml down",
+    "prisma:generate": "dotenv -e .env.development -- npx prisma generate --schema=src/infra/database/prisma/schema.prisma",
+    "prisma:generate:test": "dotenv -e .env.test -- npx prisma generate --schema=src/infra/database/prisma/schema.prisma",
+    "prisma:validate": "dotenv -e .env.development -- npx prisma validate",
+    "prisma:validate:test": "dotenv -e .env.test -- npx prisma validate",
+    "prisma:migrate": "dotenv -e .env.development -- npx prisma migrate dev",
+    "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "prisma:studio": "dotenv -e .env.development -- npx prisma studio",
+    "prisma:studio:test": "dotenv -e .env.test -- npx prisma studio",
     "prepare": "husky"
   },
   "repository": {
@@ -55,6 +63,7 @@
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.0.3",
+    "@types/pg": "^8.16.0",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "^4.0.16",
     "dotenv": "^17.2.3",
@@ -66,6 +75,13 @@
     "jsdom": "^27.3.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
+    "prisma": "^7.2.0",
     "vitest": "^4.0.16"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
+    "fastify": "^5.6.2",
+    "pg": "^8.16.3"
   }
 }
